@@ -24,7 +24,7 @@ export const registerController = async (
 ) => {
   const result = await usersService.register(req.body);
   return res.json({
-    error: 'Register successful!',
+    message: 'Register successful!',
     result
   });
 };

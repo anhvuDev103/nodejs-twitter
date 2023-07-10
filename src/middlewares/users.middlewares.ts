@@ -3,6 +3,7 @@ import { checkSchema } from 'express-validator';
 import databaseService from '~/services/database.services';
 import { validate } from '~/utils/validation';
 import usersService from '~/services/users.services';
+import { ErrorWithStatus } from '~/models/Errors';
 
 export const loginValidator = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
@@ -35,6 +36,7 @@ export const registerValidator = validate(
         options: async (value) => {
           const isExistedEmail = await usersService.checkEmailExisted(value);
           if (isExistedEmail) {
+            // throw new ErrorWithStatus({ status: 401, message: 'Email already existed' });
             throw new Error('Email already existed');
           }
           return true;
